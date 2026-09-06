@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How I Teach. What I Value.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C1F2B;
+    --ink-soft:#37352F;
+    --paper:#F7F7F4;
+    --panel:#FFFFFF;
+    --line:#E4E3DD;
+
+    --c1:#4FA893; /* Student-Centred: pastel teal */
+    --c1-tint:#BFE9DE;
+    --c2:#8189D6; /* Clear & Structured: pastel periwinkle */
+    --c2-tint:#C8CBF0;
+    --c3:#D283A8; /* Practical & Engaging: pastel rose */
+    --c3-tint:#F2C9DD;
+    --c4:#7BAE63; /* Real-World Focus: pastel sage */
+    --c4-tint:#CBE6BB;
+    --c5:#D6A13C; /* Industry Ready: pastel amber */
+    --c5-tint:#F2D89B;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:transparent;
+    color:var(--ink);
+    font-family:'Source Serif 4',Georgia,'Times New Roman',serif;
+    font-size:13px;
+    -webkit-font-smoothing:antialiased;
+    padding:20px 16px;
+  }
+
+  .wrap{max-width:760px;margin:0 auto;}
+
+  .card{
+    background:#F5F1FA;
+    border:1px solid #E4DCF0;
+    border-radius:18px;
+    box-shadow:0 1px 2px rgba(20,20,15,.04), 0 8px 24px rgba(20,20,15,.06);
+    overflow:hidden;
+  }
+  .card-stripe{
+    height:6px;
+    background:linear-gradient(90deg, var(--c1) 0 20%, var(--c2) 20% 40%, var(--c3) 40% 60%, var(--c4) 60% 80%, var(--c5) 80% 100%);
+  }
+  .card-body{
+    padding:28px 28px 32px;
+  }
+
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    font-weight:600;
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Source Serif 4',Georgia,serif;
+    font-weight:600;
+    font-size:clamp(28px,4.5vw,34px);
+    line-height:1.15;
+    margin:0 0 4px;
+    letter-spacing:-0.01em;
+  }
+  .lede{
+    font-size:16px;
+    color:var(--ink-soft);
+    margin:0 0 20px;
+    line-height:1.6;
+    max-width:none;
+  }
+  .hint{
+    font-size:13px;
+    color:var(--ink-soft);
+    opacity:.7;
+    font-style:italic;
+    margin:0 0 18px;
+  }
+
+  /* Accordion */
+  .accordion{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .item{
+    background:var(--panel);
+    border:1.5px solid var(--accent);
+    border-radius:14px;
+    overflow:hidden;
+    transition:box-shadow .15s ease, border-color .15s ease;
+  }
+  .item[data-open="true"]{
+    border-width:2px;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+  }
+
+  .item-header{
+    appearance:none;
+    width:100%;
+    border:none;
+    background:var(--tint);
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    cursor:pointer;
+    text-align:left;
+    font-family:'Source Serif 4',Georgia,'Times New Roman',serif;
+    transition:background .15s ease;
+  }
+  .item[data-open="true"] .item-header{
+    background:var(--tint);
+    filter:saturate(1.15);
+  }
+  .item-header:focus-visible{outline:2px solid var(--ink); outline-offset:-2px;}
+
+  .icon{
+    width:38px;height:38px;
+    border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--panel);
+    color:var(--accent);
+    flex:none;
+  }
+  .icon svg{width:20px;height:20px;stroke:var(--accent);}
+
+  .header-text{flex:1 1 auto; min-width:0;}
+  .panel-tagline{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-weight:600;
+    color:var(--accent);
+    margin:0 0 2px;
+  }
+  .item-header h2{
+    font-family:'Source Serif 4',Georgia,serif;
+    font-weight:600;
+    font-size:19px;
+    margin:0;
+    color:var(--ink);
+    line-height:1.25;
+  }
+
+  .chevron{
+    flex:none;
+    width:22px;height:22px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--ink-soft);
+    transition:transform .2s ease;
+  }
+  .item[data-open="true"] .chevron{
+    transform:rotate(180deg);
+    color:var(--accent);
+  }
+
+  .panel{
+    display:grid;
+    grid-template-rows:0fr;
+    transition:grid-template-rows .22s ease;
+  }
+  .item[data-open="true"] .panel{
+    grid-template-rows:1fr;
+  }
+  .panel-inner{
+    overflow:hidden;
+  }
+  .panel-content{
+    padding:14px 18px 18px 18px;
+  }
+  .panel p.body{
+    font-size:16px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    margin:0;
+    border-left:2px solid var(--accent);
+    padding-left:16px;
+  }
+
+  @media (max-width:520px){
+    .item-header{padding:12px 14px;}
+    .panel-content{padding:0 14px 16px 14px;}
+    .item-header h2{font-size:17px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+<div class="card-stripe"></div>
+<div class="card-body">
+  <p class="eyebrow">Teaching Philosophy — In Practice</p>
+  <h1>Translation and interpreting aren't mastered. They're earned.</h1>
+  <p class="lede">One messy, real-world decision at a time. Here's how that belief shows up in five ways, in every class.</p>
+  <p class="hint">👇 Tap each one to open — you can open as many as you like at once</p>
+
+  <div class="accordion">
+
+    <div class="item" data-open="true" style="--accent:var(--c1);--tint:var(--c1-tint);">
+      <button class="item-header" aria-expanded="true" aria-controls="panel-1" id="tab-1">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5c-1.8-1.4-4.2-2-6.5-1.7v12c2.3-.3 4.7.3 6.5 1.7 1.8-1.4 4.2-2 6.5-1.7v-12c-2.3-.3-4.7.3-6.5 1.7Z"/><path d="M12 6.5v12"/></svg></span>
+        <span class="header-text">
+          <span class="panel-tagline">Safe to get it wrong</span>
+          <h2>Student-Centred</h2>
+        </span>
+        <span class="chevron"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+      </button>
+      <div class="panel" id="panel-1" role="region" aria-labelledby="tab-1">
+        <div class="panel-inner">
+          <div class="panel-content">
+            <p class="body">I keep it student-centred, so everyone feels safe enough to try, stumble, and try again. I listen first, support without judgment, and build a room where getting it wrong out loud is how people actually learn.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item" data-open="false" style="--accent:var(--c2);--tint:var(--c2-tint);">
+      <button class="item-header" aria-expanded="false" aria-controls="panel-2" id="tab-2">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3.5h6v2.2H9z"/><path d="M8.5 11h7M8.5 14.5h7M8.5 18h4.5"/></svg></span>
+        <span class="header-text">
+          <span class="panel-tagline">No jargon, no guesswork</span>
+          <h2>Clear &amp; Structured</h2>
+        </span>
+        <span class="chevron"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+      </button>
+      <div class="panel" id="panel-2" role="region" aria-labelledby="tab-2">
+        <div class="panel-inner">
+          <div class="panel-content">
+            <p class="body">I keep it clear and structured, breaking down complex ideas with scaffolding instead of jargon. Nothing gets left as "figure it out yourself", every hard concept gets a way in.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item" data-open="false" style="--accent:var(--c3);--tint:var(--c3-tint);">
+      <button class="item-header" aria-expanded="false" aria-controls="panel-3" id="tab-3">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4.5a2 2 0 1 1 3.5 1.3c-.3.4-.5.9-.5 1.4V8h2.7c.5 0 1-.2 1.4-.5A2 2 0 1 1 17.5 11c-.4-.3-.9-.5-1.4-.5H14v2.7c0 .5.2 1 .5 1.4A2 2 0 1 1 11 16c.3-.4.5-.9.5-1.4V12H8.8c-.5 0-1 .2-1.4.5A2 2 0 1 1 6.5 9c.4.3.9.5 1.4.5H10V6.2c0-.5-.2-1-.5-1.4A2 2 0 0 1 9 4.5Z"/></svg></span>
+        <span class="header-text">
+          <span class="panel-tagline">Live scenarios, not static slides</span>
+          <h2>Practical &amp; Engaging</h2>
+        </span>
+        <span class="chevron"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+      </button>
+      <div class="panel" id="panel-3" role="region" aria-labelledby="tab-3">
+        <div class="panel-inner">
+          <div class="panel-content">
+            <p class="body">I keep it practical and engaging, mixing real tools and live scenarios instead of static textbook examples. If it doesn't feel like real work, it doesn't stick.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item" data-open="false" style="--accent:var(--c4);--tint:var(--c4-tint);">
+      <button class="item-header" aria-expanded="false" aria-controls="panel-4" id="tab-4">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2 2.3 3 5.1 3 8s-1 5.7-3 8c-2-2.3-3-5.1-3-8s1-5.7 3-8Z"/></svg></span>
+        <span class="header-text">
+          <span class="panel-tagline">Straight from the field</span>
+          <h2>Real-World Focus</h2>
+        </span>
+        <span class="chevron"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+      </button>
+      <div class="panel" id="panel-4" role="region" aria-labelledby="tab-4">
+        <div class="panel-inner">
+          <div class="panel-content">
+            <p class="body">I stay real-world focused, pulling straight from my own industry work in translation and interpreting. What I bring to class isn't theory I read about, it's work I did last week.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item" data-open="false" style="--accent:var(--c5);--tint:var(--c5-tint);">
+      <button class="item-header" aria-expanded="false" aria-controls="panel-5" id="tab-5">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="2"/><path d="M9 8V6.5A2.5 2.5 0 0 1 11.5 4h1A2.5 2.5 0 0 1 15 6.5V8"/><path d="M4 13h16"/></svg></span>
+        <span class="header-text">
+          <span class="panel-tagline">Not just a passing grade</span>
+          <h2>Industry Ready</h2>
+        </span>
+        <span class="chevron"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+      </button>
+      <div class="panel" id="panel-5" role="region" aria-labelledby="tab-5">
+        <div class="panel-inner">
+          <div class="panel-content">
+            <p class="body">Ultimately, I'm building students who are industry ready, not just academically ready. The proof isn't a grade sheet, it's watching them go from "I hope this is right" to confidently defending their choices.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+</div>
+
+<script>
+  const items = Array.from(document.querySelectorAll('.item'));
+
+  items.forEach((item)=>{
+    const header = item.querySelector('.item-header');
+    header.addEventListener('click', ()=>{
+      const isOpen = item.getAttribute('data-open') === 'true';
+      item.setAttribute('data-open', isOpen ? 'false' : 'true');
+      header.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    });
+  });
+</script>
+</body>
+</html>
